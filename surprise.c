@@ -11,9 +11,12 @@ void initFrames(void);
 
 int main(int argc, char* argv[]) {
     initFrames();
+    
     struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    int rows = (ROWS>w.ws_row) ? ROWS:w.ws_row;
     int cols = w.ws_col;
+    
     int offset = 0;
     int width = COLS;
     while (width > cols) {
@@ -21,18 +24,18 @@ int main(int argc, char* argv[]) {
         width -= 2;
     }
         
-
     int frame = 0;
     while (1) {
-        for(int i=0; i<42; i++) {
+        for(int i=0; i<rows; i++) {
             for(int j=offset; j<offset+width; j++)
                 printf("%c", n[frame][i][j]);
             printf("\n");
         }
-        usleep(50*1000);
+        usleep(150*1000);
         printf("\e[1;1H\e[2J");
+        fflush(stdout);
 
-        frame = (++frame) % 27;
+        frame = (frame + 1) % FRAMES;
     }
     
 }
