@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
     
     struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-    int rows = (ROWS>w.ws_row) ? ROWS:w.ws_row;
+    int rows = (ROWS>w.ws_row) ? w.ws_row:ROWS;
     int cols = w.ws_col;
     
     int offset = 0;
