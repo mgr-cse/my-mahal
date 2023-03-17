@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
                 printf("%c", n[frame][i][j]);
             printf("\n");
         }
-        usleep(100*1000);
+        usleep(50*1000);
         printf("\e[1;1H\e[2J");
 
         frame = (++frame) % 27;
